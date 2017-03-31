@@ -70,10 +70,10 @@ Questions you should ask yourself:
 // https://valhalla.mapzen.com/route?api_key=mapzen-Dok7vcm&json={%22locations%22:[{%22lat%22:41.648188,%22lon%22:-86.133938},{%22lat%22:41.648188,%22lon%22:-86.1347758}],%22costing%22:%22auto%22,%22directions_options%22:{%22units%22:%22miles%22}}
 
 
-var url = "https://search.mapzen.com/v1/search?api_key=mapzen-Dok7vcm&text=";
+var url = "https://search.mapzen.com/v1/search?api_key=mapzen-Dok7vcm&size=1&text=";
 var newurl = "";
 
-var urlsmproute = "https://valhalla.mapzen.com/optimized_route?api_key=mapzen-Dok7vcm&json=";
+var urlsmproute = "https://valhalla.mapzen.com/route?api_key=mapzen-Dok7vcm&json=";
 var newurlsmproute = "";
 
 var urlmultiroute = "https://valhalla.mapzen.com/route?api_key=mapzen-Dok7vcm&json=";
@@ -117,8 +117,10 @@ $('#Search').click(function(){
       console.log("parsed");
       featureGroup.push(L.geoJSON(parsedData,{
       }).addTo(map));
-      // DestLat = data.features[0].geometry.coordinates[1];
-      // DestLon = data.features[0].geometry.coordinates[0];
+
+      DestLat = data.features[0].geometry.coordinates[1];
+      DestLon = data.features[0].geometry.coordinates[0];
+      console.log("added");
       // console.log(featureGroup._layers[50]._latlng);
     });
   });
@@ -140,7 +142,7 @@ $('#Search').click(function(){
 
 // "lat":state.position.marker._latlng.lat,"lon":state.position.marker._latlng.lon
 
-
+// document function should only at top
 $('#SmpRoute').click(function(){
   $(document).ready(function() {
     jsontoadd.locations.push({"lat":OriginLat,"lon":OriginLon},{"lat":DestLat,"lon":DestLon});
@@ -150,6 +152,24 @@ $('#SmpRoute').click(function(){
     // at=39.993096&focus.point.lon=-75.175034&boundary.circle.lat=39.993096&boundary.circle.lon=-75.175034&boundary.circle.radius=100';
     console.log(newurlsmproute);
     $.ajax(newurlsmproute).done(function(data){
+      var string = data.trip.legs[0].shape;
+      console.log("string");
+      var decodedData = decode(string,6);
+      console.log(decodedData);
+
+      var linestring1 = turf.lineString(_.map(decodedData,function(data){
+        return data.reverse();}));
+      //CONVERT TO GEOJSON LINE//
+      console.log(linestring1);
+      L.geoJSON(linestring1).addTo(map);
+
+      // _.map(test,function(data){
+      // return data.reverse()})
+      // Array [ Array[2], Array[2] ]
+
+      /////////////QUESTIONS4:
+      /////////////always reporting "invalid geoJSON object".
+
 
 /////QUESTIONS 3:
 /////{"error_code":106,"error":"Try any of:'\/locate' '\/route' '\/trace_route' '\/trace_attributes' ","status_code":404,"status":"Not Found"}///////////////
@@ -204,45 +224,17 @@ to the next task.
 // var points = {"locations":[{"lat":,"lon":},{}]};
 
 
-$('#Decode').click(function(){
-  $(document).ready(function(){
-    $.ajax(newurlmultiroute).done(function(data){
-      var string = data.trip.legs[0].shape;
-      console.log("string");
-      var decodedData = decode(string,6);
-      console.log(decodedData);
 
-      //CONVERT TO GEOJSON LINE//
-      var PlotLine =
-      {
-              "id": "route",
-              "type": "line",
-              "source": {
-                  "type": "geojson",
-                  "data": {
-                      "type": "Feature",
-                      "properties": {},
-                      "geometry": {
-                          "type": "LineString",
-                          "coordinates": [
-                              [decodedData[0][1],decodedData[0][0]],
-                              [decodedData[1][1],decodedData[1][0]]
-                          ]
-                      }
-                  }
-              }
-      };
-      console.log(PlotLine);
+// Use Functions
+//
 
-      /////////////QUESTIONS4:
-      /////////////always reporting "invalid geoJSON object".
-      // var newlayer = PlotLine.addTo(map);
-      L.geoJSON(PlotLine,{}).addTo(map);
+// $('#Decode').click(function(){
+//   $(document).ready(function(){
+//     // $.ajax(newurlsmproute).done(function(data){
+//
+//
+//     });
 
-
-    });
-  });
-});
 
 // if (i<decodedData.length){
 //
