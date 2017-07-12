@@ -6,16 +6,33 @@
     <link rel="stylesheet" href="css/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css" />
     <link rel="stylesheet" href="css/style.css" />
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
   </head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
+      <h1> SHAPES@Philly</h1>
       <div id="shapes">
         <div class="shape" data-leaflet-id="[the id]">
-          <h1 id = ID>Current ID:</h1>
+          <h2>the first ID?</h2>
         </div>
-        <button id="allshapes">show all shapes</button>
+        <br>
+        <p>This application is designed to allow users to draw customized shapes over Philadelphia and explore the city's information hidden beneath their shapes. </p>
+        <br>
+        <img id="image" src="https://aos.iacpublishinglabs.com/question/aq/1400px-788px/many-philadelphia-city-blocks-mile_b86508b161734922.jpg?domain=cx.aos.ask.com">
+        <br>
+        <br>
+        <div>
+            <button class="button" id="allshapes">show all shapes</button>
+            <button class="button" id="clearshapes">clear all shapes</button>
+        </div>
+        <br>
+        <br>
+        <label for="dest">Enter a destination</label>
+        <input id="dest" type="text">
+        <button class="button" id="Search">Search</button>
       </div>
+
 
     </div>
     <!-- Map -->
@@ -27,5 +44,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js"></script>
     <script src="js/setup.js"></script>
     <script src="js/draw.js"></script>
+    <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+    <!-- <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> -->
+
   </body>
 </html>

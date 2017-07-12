@@ -75,17 +75,39 @@ Moving your mouse outside of the circle should remove the highlighting.
 // - Anything else you can think of!
 
 // Global Variables
+var url = "https://search.mapzen.com/v1/search?api_key=mapzen-Dok7vcm&size=1&text=";
+var newurl = "";
+
+var featureGroup = [];
+var filteredfeatureGroup = [];
+
+
 
 var myRectangles = [];
 var myRectangless = [];
+var layerGroup = new L.LayerGroup();
 // var layer = e.layer; // The Leaflet layer for the shape
+
+$('#Search').click(function(){
+  $(document).ready(function(){
+    newurl = url + $('#dest').val();
+    console.log(newurl);
+    $.ajax(newurl).done(function(data){
+      console.log("downloaded");
+      var parsedData = JSON.parse(JSON.stringify(data));
+      console.log("parsed");
+      featureGroup.push(L.geoJSON(parsedData,{
+      }).addTo(map));
+      console.log("added");
+      DestLat = data.features[0].geometry.coordinates[1];
+      DestLon = data.features[0].geometry.coordinates[0];
+    });
+  });
+});
 
 
 
 // Initialize Leaflet Draw
-
-
-
 var drawControl = new L.Control.Draw({
   draw: {
     polyline: true,
@@ -104,6 +126,13 @@ map.addControl(drawControl);
 // 2. map.on...?
 // Run every time Leaflet draw creates a new layer
 
+
+// Task 2: Add rectangles to map
+//
+// Add the rectangle layers to the map when they are drawn. Hint: you can use the
+// addLayer function that we have used in the past.
+
+
 //Stretch Goal 1
 map.on('draw:created', function (e) {
       var type = e.layerType; // The type of shape
@@ -111,10 +140,19 @@ map.on('draw:created', function (e) {
       var id = L.stamp(layer); // The unique Leaflet ID for the layer
       myRectangless.push(layer);
       console.log(myRectangless);
+
       $('#allshapes').click(function(e){
         console.log("button clicked");
         layer.addTo(map);
       });
+
+      $('#clearshapes').click(function(e){
+        console.log("remove clicked");
+        _.each(myRectangless,function(item){
+          map.removeLayer(item);
+        });
+      });
+
       layer.on('click', function (event) {
         console.log("clicked");
         return{color:"#FFF000"};
@@ -126,16 +164,16 @@ map.on('draw:created', function (e) {
 // to have the variable "layer" already defined there.
 
 
-// map.on('draw:created', function (e) {
-//     if(myRectangles.length>0){
-//       $('.shape').html("<h1 id = ID>Current ID:</h1>");
-//       map.removeLayer(myRectangles[myRectangles.length-1]);
-//     }
-//       var type = e.layerType; // The type of shape
-//       var layer = e.layer; // The Leaflet layer for the shape
-//       var id = L.stamp(layer); // The unique Leaflet ID for the layer
-//       $('.shape').append(id);
-//       myRectangles.push(layer.addTo(map));
-//       console.log(myRectangles);
-//       // $('#shapes').append("<div class='shape' data-leaflet-id=" + myRectangles[myRectangles.length]._leaflet_id + "><h1>Current ID: " + myRectangles[myRectangles.length]._leaflet_id + "</h1></div>");
-// });
+map.on('draw:created', function (e) {
+    if(myRectangles.length>0){
+      $('.shape').html("<h2 id = ID>Now the Current ID:</h2>");
+      map.removeLayer(myRectangles[myRectangles.length-1]);
+    }
+      var type = e.layerType; // The type of shape
+      var layer = e.layer; // The Leaflet layer for the shape
+      var id = L.stamp(layer); // The unique Leaflet ID for the layer
+      $('.shape').append(id);
+      myRectangles.push(layer.addTo(map));
+      console.log(myRectangles);
+      // $('#shapes').append("<div class='shape' data-leaflet-id=" + myRectangles[myRectangles.length]._leaflet_id + "><h1>Current ID: " + myRectangles[myRectangles.length]._leaflet_id + "</h1></div>");
+});

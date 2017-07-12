@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/leaflet.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
   </head>
   <body>
@@ -21,13 +22,48 @@
     <div class="sidebar">
       <h1>Generating Routes</h1>
       <h2 class="h3">From <span style="color:blue">here</span> to <span style="color:red">there</span></h2>
-      <label for="dest">Enter a destination</label>
-      <input id="dest" type="text">
-      <button id="calculate" disabled>Calculate Route</button>
-      <button id="Search">1 Search</button>
-      <button id = "SmpRoute">2 Simple Route</button>
-      <button id="Route">3 Optimal Route</button>
-      <button id="Decode">4 Decode</button>
+
+      <div id="shapes">
+        <div class="shape" data-leaflet-id="[the id]">
+          <h2>the first ID?</h2>
+        </div>
+        <div>
+            <button class="button" id="allshapes">show all shapes</button>
+            <button class="button" id="clearshapes">clear all shapes</button>
+        </div>
+      </div>
+      <br>
+      <br>
+      <label for="dest">Enter a Subject</label>
+      <input id="subject" type="text">
+      <br><br>
+      <label for="dest">Enter a Center</label>
+      <input id="center" type="text">
+      <br><br>
+      <label for="dest">Enter a Radius (km)</label>
+      <input id="radius" type="text">
+      <br><br>
+
+      <div>
+        <h2>A: Search</h2>
+        <button class="button" id="Search">A1 SrchTop</button>
+        <button class="button" id="SearchM">A2 SrchMultiple</button>
+        <button class="button" id="SearchIN">A3 SrchinCircle</button>
+      </div>
+
+      <div>
+        <h2>B: Routing</h2>
+        <button class="button" id = "SmpRoute">B1 Simple Route</button>
+        <button class="button" id="Route">B2 Optimal Route</button>
+      </div>
+
+      <div>
+        <h2>C: Other</h2>
+        <button class="button" id="calculate" disabled>C1 Calculate Route</button>
+        <button class="button" id="Decode">C2 Decode</button>
+      </div>
+
+
     </div>
     <!-- Javascript Imports -->
     <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
@@ -36,6 +72,10 @@
     <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
     <script src="js/decode.js"></script>
     <script src="js/setup.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js"></script>
     <script src="js/main.js"></script>
+    <!-- <script src="js/leaflet.js"></script> -->
+    <!-- <script src="js/jquery-2.2.0.js"></script> -->
+    <script src="js/underscore.js"></script>
   </body>
 </html>

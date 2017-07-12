@@ -4,6 +4,8 @@ body {
     overflow: hidden;
 }
 
+
+
 .header {
   position: absolute;
   height: 50px;
@@ -32,6 +34,14 @@ body {
   overflow: hidden;
   overflow-y: auto;
 }
+
+.button{
+  background-color: "#FE9A2E";
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
 
 #toggle-sidebar {
   position: absolute;

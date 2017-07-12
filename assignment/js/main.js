@@ -60,7 +60,7 @@ var state = {
   marker1: undefined,
   marker2: undefined,
   line: undefined,
-}
+};
 
 /** ---------------
 Map configuration

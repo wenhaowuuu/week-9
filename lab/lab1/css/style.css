@@ -22,6 +22,28 @@ body {
     padding: 20px;
 }
 
+#image{
+  width:300px;
+}
+
+#clearshapes{
+  position:relative;
+  margin-left:20px;
+}
+
+/*#ID{
+  font-size: 20px;
+  font-family: fantasy;
+}*/
+.button{
+  background-color: "#FE9A2E";
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+
+
 h1 {
     margin-bottom: 10px;
 }

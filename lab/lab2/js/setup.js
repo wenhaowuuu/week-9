@@ -1,6 +1,7 @@
 
 // Setting up our map
 var map = L.map('map', {
+  drawControl:true,
   center: [0, 0],
   zoom: 2,
 });
